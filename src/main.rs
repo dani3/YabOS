@@ -1,24 +1,32 @@
-// Don't link the Rust standard library
 #![no_std]
-// Disable all Rust level entry points.
 #![no_main]
-
-mod vga_buffer;
+#![feature(custom_test_frameworks)]
+#![test_runner(yab_os::test_runner)]
+#![reexport_test_harness_main = "test_main"]
 
 use core::panic::PanicInfo;
+use yab_os::println;
+
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    println!("Hello World{}", "!");
+
+    #[cfg(test)]
+    test_main();
+
+    loop {}
+}
 
 /// This function is called on panic.
+#[cfg(not(test))]
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
     loop {}
 }
 
-// Don't mangle the name of the function.
-//
-// This function is the entry point, since the linker looks for a function
-// called `_start` by default.
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
-    loop {}
+#[cfg(test)]
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    yab_os::test_panic_handler(info)
 }
