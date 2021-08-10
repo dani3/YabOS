@@ -13,11 +13,6 @@ pub extern "C" fn _start() -> ! {
 
     yab_os::init();
 
-    // trigger a page fault
-    unsafe {
-        *(0xdeadbeef as *mut u64) = 42;
-    };
-
     #[cfg(test)]
     test_main();
 

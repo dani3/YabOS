@@ -14,12 +14,12 @@ pub extern "C" fn _start() -> ! {
     loop {}
 }
 
-#[panic_handler]
-fn panic(info: &PanicInfo) -> ! {
-    yab_os::test_panic_handler(info);
-}
-
 #[test_case]
 fn test_println() {
     println!("test_println output");
+}
+
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    yab_os::test_panic_handler(info);
 }
