@@ -1,7 +1,9 @@
 //! # VGA Buffer module
 //!
-//! This module acts as wrapper that allows printing to the screen via the [VGA buffer](https://wiki.osdev.org/Printing_to_Screen).
-//! It provides the `print!` and `println!` macros that can be used in the same way as the ones in the standard library.
+//! This module acts as wrapper that allows printing to the screen via
+//! the [VGA buffer](https://wiki.osdev.org/Printing_to_Screen). It provides
+//! the `print!` and `println!` macros that can be used in the same way as
+//! the ones in the standard library.
 //!
 //! ```
 //! println!("Hello world{}", "!");
